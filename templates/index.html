@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkyVPN Reward Claimer</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛡️</text></svg>">
+    <style>
+       
+        
+        .footer-container {
+            background-color: #333;
+            color: #fff;
+            padding: 30px 0 10px;
+            margin-top: auto;
+        }
+        
+        .footer-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .developer-footer {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-align: center;
+            color: #FFD740;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .heart {
+            color: #F44336;
+            animation: heartbeat 1.5s infinite;
+        }
+        
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            14% { transform: scale(1.3); }
+            28% { transform: scale(1); }
+            42% { transform: scale(1.3); }
+            70% { transform: scale(1); }
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-link {
+            color: #bbb;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-link:hover {
+            color: #FFD740;
+        }
+        
+        .copyright {
+            font-size: 0.9rem;
+            color: #888;
+            text-align: center;
+            padding-top: 15px;
+            border-top: 1px solid #444;
+            width: 100%;
+        }
+        
+        @media (max-width: 600px) {
+            .app-title {
+                font-size: 1.2rem;
+            }
+            
+            .card-header {
+                font-size: 1.1rem;
+            }
+            
+            .word {
+                font-size: 1rem;
+                padding: 6px 12px;
+            }
+            
+            .developer-footer {
+                font-size: 1rem;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-8">
+        <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
+            <!-- Header -->
+            <div class="bg-blue-600 text-white px-6 py-4">
+                <h1 class="text-2xl font-bold"><i class="fas fa-shield-alt mr-2"></i>SkyVPN Reward Claimer</h1>
+            </div>
+            
+            <!-- Main Content -->
+            <div class="p-6">
+                <!-- Configuration Form -->
+                <div class="bg-gray-50 p-4 rounded-lg mb-6">
+                    <h2 class="text-xl font-semibold mb-4 text-gray-800"><i class="fas fa-cog mr-2"></i>Configuration</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Base URL</label>
+                            <input type="text" id="base_url" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Device ID</label>
+                            <input type="text" id="device_id" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Token</label>
+                            <input type="text" id="token" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">User ID</label>
+                            <input type="text" id="user_id" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Reward Amount</label>
+                            <input type="number" id="reward_amount" value="1000" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Number of Cycles</label>
+                            <input type="number" id="cycles" value="20" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Delay Between Cycles (sec)</label>
+                            <input type="number" step="0.1" id="delay" value="5.0" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                    </div>
+                    
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        {% for preset_id, preset in presets.items() %}
+                        <button onclick="loadPreset('{{ preset_id }}')" class="px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded-md text-sm font-medium">
+                            {{ preset_id }}
+                        </button>
+                        {% endfor %}
+                    </div>
+                    
+                    <div class="flex justify-end">
+                        <button onclick="runRewards()" class="px-6 py-2 bg-blue-600 hover:bg-blue-700 rounded-md text-white font-medium">
+                            <i class="fas fa-play mr-2"></i>Start Claiming
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Results Section -->
+                <div class="bg-gray-50 p-4 rounded-lg mb-6">
+                    <h2 class="text-xl font-semibold mb-4 text-gray-800 flex justify-between items-center">
+                        <span><i class="fas fa-list-check mr-2"></i>Results</span>
+                        <span id="total-claimed" class="text-sm font-normal bg-green-100 text-green-800 px-3 py-1 rounded-full hidden">
+                            Total Claimed: <span id="total-amount">0</span> points
+                        </span>
+                    </h2>
+                    
+                    <div id="results-container" class="space-y-4">
+                        <div class="text-center text-gray-500 py-8" id="empty-results">
+                            <i class="fas fa-inbox text-4xl mb-2"></i>
+                            <p>No results yet. Configure and run the reward claimer.</p>
+                        </div>
+                    </div>
+                </div>
+                
+    
+    <footer class="footer-container">
+        <div class="footer-content">
+            <div class="developer-footer">
+                <span>Developed with</span>
+                <span class="heart"><i class="fas fa-heart"></i></span>
+                <span>by PeaceCode</span>
+            </div>
+            
+            <div class="copyright">
+                &copy; 2025 Sky Vpn Points Claim. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const presets = {
+            {% for preset_id, preset in presets.items() %}
+                "{{ preset_id }}": {
+                    "base_url": "{{ preset.base_url }}",
+                    "device_id": "{{ preset.device_id }}",
+                    "token": "{{ preset.token }}",
+                    "user_id": "{{ preset.user_id }}"
+                },
+            {% endfor %}
+        };
+        
+        function loadPreset(presetId) {
+            const preset = presets[presetId];
+            if (preset) {
+                document.getElementById('base_url').value = preset.base_url;
+                document.getElementById('device_id').value = preset.device_id;
+                document.getElementById('token').value = preset.token;
+                document.getElementById('user_id').value = preset.user_id;
+            }
+        }
+        
+        function runRewards() {
+            const baseUrl = document.getElementById('base_url').value;
+            const deviceId = document.getElementById('device_id').value;
+            const token = document.getElementById('token').value;
+            const userId = document.getElementById('user_id').value;
+            const rewardAmount = document.getElementById('reward_amount').value;
+            const cycles = document.getElementById('cycles').value;
+            const delay = document.getElementById('delay').value;
+            
+            // Get DOM elements safely
+            const resultsContainer = document.getElementById('results-container');
+            const emptyResults = document.getElementById('empty-results');
+            const totalClaimed = document.getElementById('total-claimed');
+            const totalAmount = document.getElementById('total-amount');
+            
+            // Validate required fields
+            if (!baseUrl || !deviceId || !token || !userId) {
+                alert('Please fill in all required fields');
+                return;
+            }
+            
+            // Clear previous results if elements exist
+            if (resultsContainer) resultsContainer.innerHTML = '';
+            if (emptyResults) emptyResults.classList.add('hidden');
+            if (totalClaimed) totalClaimed.classList.remove('hidden');
+            if (totalAmount) totalAmount.textContent = '0';
+            
+            // Disable button during processing
+            const btn = document.querySelector('button[onclick="runRewards()"]');
+            if (btn) {
+                btn.disabled = true;
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Processing...';
+            }
+            
+            fetch('/run', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    base_url: baseUrl,
+                    device_id: deviceId,
+                    token: token,
+                    user_id: userId,
+                    reward_amount: rewardAmount,
+                    cycles: cycles,
+                    delay: delay
+                })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    displayResults(data.results);
+                    if (totalAmount) {
+                        totalAmount.textContent = data.total_claimed;
+                    }
+                } else {
+                    showError('Error occurred while running rewards');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showError('Error occurred while running rewards: ' + error.message);
+            })
+            .finally(() => {
+                if (btn) {
+                    btn.disabled = false;
+                    btn.innerHTML = '<i class="fas fa-play mr-2"></i>Start Claiming';
+                }
+            });
+        }
+        
+            function displayResults(results) {
+                const container = document.getElementById('results-container');
+                if (!container) return;
+                
+                results.forEach(cycle => {
+                    const cycleElement = document.createElement('div');
+                    cycleElement.className = 'bg-white p-4 rounded-lg shadow';
+                    
+                    const cycleHeader = document.createElement('h3');
+                    cycleHeader.className = 'font-medium text-lg mb-2 text-blue-600';
+                    cycleHeader.textContent = `Cycle ${cycle.cycle}`;
+                    cycleElement.appendChild(cycleHeader);
+                    
+                    const taskList = document.createElement('div');
+                    taskList.className = 'space-y-2';
+                    
+                    cycle.results.forEach(task => {
+                        const taskElement = document.createElement('div');
+                        taskElement.className = 'flex items-start';
+                        
+                        const icon = document.createElement('div');
+                        icon.className = task.success ? 'text-green-500 mr-2' : 'text-red-500 mr-2';
+                        icon.innerHTML = task.success ? '<i class="fas fa-check-circle"></i>' : '<i class="fas fa-times-circle"></i>';
+                        taskElement.appendChild(icon);
+                        
+                        const content = document.createElement('div');
+                        content.className = 'flex-1';
+                        
+                        const taskType = document.createElement('div');
+                        taskType.className = 'text-sm font-medium';
+                        taskType.textContent = `Task Type: ${task.task_type}`;
+                        content.appendChild(taskType);
+                        
+                        const message = document.createElement('div');
+                        message.className = 'text-sm';
+                        message.textContent = task.message;
+                        content.appendChild(message);
+                        
+                        if (task.success && task.balance) {
+                            const balance = document.createElement('div');
+                            balance.className = 'text-sm text-gray-500';
+                            balance.textContent = `Current Balance: ${task.balance}`;
+                            content.appendChild(balance);
+                        }
+                        
+                        taskElement.appendChild(content);
+                        taskList.appendChild(taskElement);
+                    });
+                    
+                    cycleElement.appendChild(taskList);
+                    container.appendChild(cycleElement);
+                });
+            }
+            
+            function showError(message) {
+                const container = document.getElementById('results-container');
+                if (!container) return;
+                
+                const errorElement = document.createElement('div');
+                errorElement.className = 'bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-4';
+                errorElement.innerHTML = `<p><i class="fas fa-exclamation-triangle mr-2"></i>${message}</p>`;
+                container.appendChild(errorElement);
+            }
+    </script>
+</body>
+</html>
