@@ -5,12 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SkyVPN Reward Claimer</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛡️</text></svg>">
     <style>
-       
-        
         .footer-container {
             background-color: #333;
             color: #fff;
@@ -181,7 +178,9 @@
                         </div>
                     </div>
                 </div>
-                
+            </div>
+        </div>
+    </div>
     
     <footer class="footer-container">
         <div class="footer-content">
@@ -296,69 +295,69 @@
             });
         }
         
-            function displayResults(results) {
-                const container = document.getElementById('results-container');
-                if (!container) return;
-                
-                results.forEach(cycle => {
-                    const cycleElement = document.createElement('div');
-                    cycleElement.className = 'bg-white p-4 rounded-lg shadow';
-                    
-                    const cycleHeader = document.createElement('h3');
-                    cycleHeader.className = 'font-medium text-lg mb-2 text-blue-600';
-                    cycleHeader.textContent = `Cycle ${cycle.cycle}`;
-                    cycleElement.appendChild(cycleHeader);
-                    
-                    const taskList = document.createElement('div');
-                    taskList.className = 'space-y-2';
-                    
-                    cycle.results.forEach(task => {
-                        const taskElement = document.createElement('div');
-                        taskElement.className = 'flex items-start';
-                        
-                        const icon = document.createElement('div');
-                        icon.className = task.success ? 'text-green-500 mr-2' : 'text-red-500 mr-2';
-                        icon.innerHTML = task.success ? '<i class="fas fa-check-circle"></i>' : '<i class="fas fa-times-circle"></i>';
-                        taskElement.appendChild(icon);
-                        
-                        const content = document.createElement('div');
-                        content.className = 'flex-1';
-                        
-                        const taskType = document.createElement('div');
-                        taskType.className = 'text-sm font-medium';
-                        taskType.textContent = `Task Type: ${task.task_type}`;
-                        content.appendChild(taskType);
-                        
-                        const message = document.createElement('div');
-                        message.className = 'text-sm';
-                        message.textContent = task.message;
-                        content.appendChild(message);
-                        
-                        if (task.success && task.balance) {
-                            const balance = document.createElement('div');
-                            balance.className = 'text-sm text-gray-500';
-                            balance.textContent = `Current Balance: ${task.balance}`;
-                            content.appendChild(balance);
-                        }
-                        
-                        taskElement.appendChild(content);
-                        taskList.appendChild(taskElement);
-                    });
-                    
-                    cycleElement.appendChild(taskList);
-                    container.appendChild(cycleElement);
-                });
-            }
+        function displayResults(results) {
+            const container = document.getElementById('results-container');
+            if (!container) return;
             
-            function showError(message) {
-                const container = document.getElementById('results-container');
-                if (!container) return;
+            results.forEach(cycle => {
+                const cycleElement = document.createElement('div');
+                cycleElement.className = 'bg-white p-4 rounded-lg shadow';
                 
-                const errorElement = document.createElement('div');
-                errorElement.className = 'bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-4';
-                errorElement.innerHTML = `<p><i class="fas fa-exclamation-triangle mr-2"></i>${message}</p>`;
-                container.appendChild(errorElement);
-            }
+                const cycleHeader = document.createElement('h3');
+                cycleHeader.className = 'font-medium text-lg mb-2 text-blue-600';
+                cycleHeader.textContent = `Cycle ${cycle.cycle}`;
+                cycleElement.appendChild(cycleHeader);
+                
+                const taskList = document.createElement('div');
+                taskList.className = 'space-y-2';
+                
+                cycle.results.forEach(task => {
+                    const taskElement = document.createElement('div');
+                    taskElement.className = 'flex items-start';
+                    
+                    const icon = document.createElement('div');
+                    icon.className = task.success ? 'text-green-500 mr-2' : 'text-red-500 mr-2';
+                    icon.innerHTML = task.success ? '<i class="fas fa-check-circle"></i>' : '<i class="fas fa-times-circle"></i>';
+                    taskElement.appendChild(icon);
+                    
+                    const content = document.createElement('div');
+                    content.className = 'flex-1';
+                    
+                    const taskType = document.createElement('div');
+                    taskType.className = 'text-sm font-medium';
+                    taskType.textContent = `Task Type: ${task.task_type}`;
+                    content.appendChild(taskType);
+                    
+                    const message = document.createElement('div');
+                    message.className = 'text-sm';
+                    message.textContent = task.message;
+                    content.appendChild(message);
+                    
+                    if (task.success && task.balance) {
+                        const balance = document.createElement('div');
+                        balance.className = 'text-sm text-gray-500';
+                        balance.textContent = `Current Balance: ${task.balance}`;
+                        content.appendChild(balance);
+                    }
+                    
+                    taskElement.appendChild(content);
+                    taskList.appendChild(taskElement);
+                });
+                
+                cycleElement.appendChild(taskList);
+                container.appendChild(cycleElement);
+            });
+        }
+        
+        function showError(message) {
+            const container = document.getElementById('results-container');
+            if (!container) return;
+            
+            const errorElement = document.createElement('div');
+            errorElement.className = 'bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-4';
+            errorElement.innerHTML = `<p><i class="fas fa-exclamation-triangle mr-2"></i>${message}</p>`;
+            container.appendChild(errorElement);
+        }
     </script>
 </body>
 </html>
