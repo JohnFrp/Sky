@@ -117,7 +117,7 @@ def run_rewards():
     token = data.get('token')
     user_id = data.get('user_id')
     cycles = int(data.get('cycles', 1))
-    delay = float(data.get('delay', 2.0))
+    delay = float(data.get('delay', 1.0))
     
     rewarder = SkyVPNAutoReward(base_url, device_id, token, user_id)
     rewarder.reward_amount = int(data.get('reward_amount', 1000))
@@ -154,4 +154,5 @@ def run_rewards():
     })
 
 if __name__ == '__main__':
+
     app.run(debug=True)
