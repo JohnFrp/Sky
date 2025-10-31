@@ -5,8 +5,10 @@ import hashlib
 import random
 import string
 from urllib.parse import quote
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 # Preset configurations
 PRESETS = {
@@ -108,6 +110,7 @@ class SkyVPNAutoReward:
 def index():
     return render_template('index.html', presets=PRESETS)
 
+
 @app.route('/run', methods=['POST'])
 def run_rewards():
     data = request.json
@@ -136,7 +139,7 @@ def run_rewards():
         
         if success:
             successful_claims += 1
-            accumulated_gb = successful_claims * 5  # Each successful claim adds 5GB
+            accumulated_gb = successful_claims * 5
         
         if cycle < cycles:
             time.sleep(delay)
@@ -149,4 +152,4 @@ def run_rewards():
     })
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)
