@@ -97,7 +97,7 @@ class SkyVPNAutoReward:
                     balance = data["data"]["userBalance"]["balance"]
                     # Calculate accumulated GB based on successful claim count
                     accumulated_gb = claim_count * 5
-                    return True, balance, f"Success! Claim #{claim_count} - Total: {accumulated_gb} GB | Balance: {balance}"
+                    return True, balance, f"Success! {claim_count} Times - Total: {accumulated_gb} GB | Balance: {balance}"
                 else:
                     return False, None, f"Failed on claim #{claim_count}: {data.get('reason', 'Unknown error')}"
             else:
@@ -153,3 +153,4 @@ def run_rewards():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
+
