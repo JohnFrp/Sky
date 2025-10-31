@@ -45,8 +45,6 @@ class SkyVPNAutoReward:
         self.app_version = "2.0.10"
         self.country = "MM"
         self.time_zone = "GMT+6:30"
-        self.working_task_types = [1, 3]
-        self.reward_amount = 1000
 
     def generate_random_string(self, length=10):
         return ''.join(random.choices(string.ascii_uppercase + string.digits, k=length))
@@ -58,7 +56,7 @@ class SkyVPNAutoReward:
     def get_current_timestamp(self):
         return int(time.time() * 1000)
 
-    def claim_reward(self, task_type):
+    def claim_reward(self, claim_count):
         timestamp = self.get_current_timestamp()
         
         params = {
@@ -68,7 +66,7 @@ class SkyVPNAutoReward:
             "dingtoneId": "",
             "r_i_s": self.generate_random_string(),
             "sign": self.generate_signature(timestamp),
-            "taskType": str(task_type),
+            "taskType": "10",
             "timeZone": quote(self.time_zone),
             "timestamp": str(timestamp),
             "token": self.token,
@@ -95,14 +93,16 @@ class SkyVPNAutoReward:
                 data = response.json()
                 if data.get("result") == "1":
                     balance = data["data"]["userBalance"]["balance"]
-                    return True, balance, f"Success! Task Type: {task_type} | Balance: {balance}"
+                    # Calculate accumulated GB based on successful claim count
+                    accumulated_gb = claim_count * 5
+                    return True, balance, f"Success! Claim #{claim_count} - Total: {accumulated_gb} GB | Balance: {balance}"
                 else:
-                    return False, None, f"Failed (Type {task_type}): {data.get('reason', 'Unknown error')}"
+                    return False, None, f"Failed on claim #{claim_count}: {data.get('reason', 'Unknown error')}"
             else:
-                return False, None, f"HTTP Error {response.status_code}"
+                return False, None, f"HTTP Error {response.status_code} on claim #{claim_count}"
 
         except requests.exceptions.RequestException as e:
-            return False, None, f"Connection error: {str(e)}"
+            return False, None, f"Connection error on claim #{claim_count}: {str(e)}"
 
 @app.route('/')
 def index():
@@ -120,29 +120,23 @@ def run_rewards():
     delay = float(data.get('delay', 1.0))
     
     rewarder = SkyVPNAutoReward(base_url, device_id, token, user_id)
-    rewarder.reward_amount = int(data.get('reward_amount', 1000))
     
     results = []
-    total_claimed = 0
+    successful_claims = 0
+    accumulated_gb = 0
     
     for cycle in range(1, cycles + 1):
-        cycle_results = []
-        for task_type in rewarder.working_task_types:
-            success, balance, message = rewarder.claim_reward(task_type)
-            cycle_results.append({
-                'task_type': task_type,
-                'success': success,
-                'message': message,
-                'balance': balance
-            })
-            if success:
-                total_claimed += rewarder.reward_amount
-            time.sleep(1)
-        
+        success, balance, message = rewarder.claim_reward(cycle)
         results.append({
             'cycle': cycle,
-            'results': cycle_results
+            'success': success,
+            'message': message,
+            'balance': balance
         })
+        
+        if success:
+            successful_claims += 1
+            accumulated_gb = successful_claims * 5  # Each successful claim adds 5GB
         
         if cycle < cycles:
             time.sleep(delay)
@@ -150,9 +144,9 @@ def run_rewards():
     return jsonify({
         'success': True,
         'results': results,
-        'total_claimed': total_claimed
+        'total_claimed_gb': accumulated_gb,
+        'successful_claims': successful_claims
     })
 
 if __name__ == '__main__':
-
     app.run(debug=True)
